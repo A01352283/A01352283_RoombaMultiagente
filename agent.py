@@ -36,6 +36,7 @@ class RandomAgent(Agent):
         # If the cell is empty, moves the agent to that cell; otherwise, it stays at the same position
         if freeSpaces[self.direction]:
             self.model.grid.move_agent(self, possible_steps[self.direction])
+            self.direction = self.random.randint(0,8)
             print(f"Se mueve de {self.pos} a {possible_steps[self.direction]}; direction {self.direction}")
         elif self.model.grid[possible_steps[self.direction][0]][possible_steps[self.direction][1]].condition == "Dirty": #Checks if the cell in the intended direction is dirty
             self.model.grid[possible_steps[self.direction][0]][possible_steps[self.direction][1]].condition = "Clean"

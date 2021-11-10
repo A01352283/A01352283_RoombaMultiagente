@@ -8,8 +8,9 @@ from mesa.visualization.UserParam import UserSettableParameter
 gridW = 25
 gridH = 25
 #agentNum = 15
-dirtPercentage = 40 #%1 to %100
+dirtPercentage = 20 #%1 to %100
 dirtAmount = floor( ((gridH*gridW)-(gridW*2+gridH*2)) * dirtPercentage/100) #Fills the field with the indicated percantage of dirt
+maxSteps = 100
 
 COLORS = {"Dirty": "#B58127", "Clean" : "#9DD0FC"}
 
@@ -18,7 +19,7 @@ def agent_portrayal(agent):
     
     portrayal = {"Shape": "circle",
                  "Filled": "true",
-                 "Layer": 0,
+                 "Layer": 2,
                  "Color": "blue",
                  "r": 0.5}
 
@@ -29,11 +30,10 @@ def agent_portrayal(agent):
     
     if (isinstance(agent, DirtAgent)):
         portrayal["Color"] = COLORS[agent.condition]
-        portrayal["Layer"] = 2
+        portrayal["Layer"] = 0
         portrayal["Shape"] = "rect"
         portrayal["w"] = 0.2
         portrayal["h"] = 0.2
-
 
     return portrayal
 
@@ -45,9 +45,11 @@ pie_chart = PieChartModule(
 )
 
 model_params = {"N": UserSettableParameter("slider", "Number of roombas", value=1, max_value=floor(((gridH*gridW)-(gridW*2+gridH*2))/2), min_value = 1), #Allows a half of the field to be roombas 
-"width": gridW, 
-"height": gridH, 
-"nDirt": dirtAmount}
+    "width": gridW, 
+    "height": gridH, 
+    "nDirt": dirtAmount,
+    "maxSteps": maxSteps
+}
 
 grid = CanvasGrid(agent_portrayal, gridW, gridH, 500, 500)
 server = ModularServer(RandomModel, [grid, dirtChart, pie_chart], "Random Agents", model_params)
