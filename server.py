@@ -5,8 +5,8 @@ from mesa.visualization.ModularVisualization import ModularServer
 from mesa.visualization.UserParam import UserSettableParameter
 
 
-gridW = 25
-gridH = 25
+gridW = 30
+gridH = 30
 #agentNum = 15
 dirtPercentage = 20 #%1 to %100
 dirtAmount = floor( ((gridH*gridW)-(gridW*2+gridH*2)) * dirtPercentage/100) #Fills the field with the indicated percantage of dirt
@@ -48,7 +48,7 @@ model_params = {"N": UserSettableParameter("slider", "Number of roombas", value=
     "width": gridW, 
     "height": gridH, 
     "nDirt": dirtAmount,
-    "maxSteps": maxSteps
+    "maxSteps": UserSettableParameter("slider", "Max steps", value=300, max_value=2000, min_value = 1)
 }
 
 grid = CanvasGrid(agent_portrayal, gridW, gridH, 500, 500)

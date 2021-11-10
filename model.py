@@ -16,7 +16,9 @@ class RandomModel(Model):
         self.dirtAmount = nDirt
         self.grid = Grid(width,height,torus = False) 
         self.schedule = RandomActivation(self)
-        self.running = True 
+        self.running = True
+        self.steps = 0
+        self.maxSteps = maxSteps
 
         self.datacollector = DataCollector(
             {
@@ -62,7 +64,7 @@ class RandomModel(Model):
         stepCount = self.schedule.steps
 
         # Halt if there's no dirty cells
-        if self.countType(self, "Dirty") == 0 or stepCount == maxSteps:
+        if self.countType(self, "Dirty") == 0 or stepCount == self.maxSteps:
             self.running = False
 
     #Helps count cells of a given tupe
