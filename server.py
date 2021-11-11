@@ -5,12 +5,11 @@ from mesa.visualization.ModularVisualization import ModularServer
 from mesa.visualization.UserParam import UserSettableParameter
 
 
-gridW = 30
-gridH = 30
+gridW = 22
+gridH = 22
 #agentNum = 15
-dirtPercentage = 20 #%1 to %100
+dirtPercentage = 99 #%1 to %100
 dirtAmount = floor( ((gridH*gridW)-(gridW*2+gridH*2)) * dirtPercentage/100) #Fills the field with the indicated percantage of dirt
-maxSteps = 100
 
 COLORS = {"Dirty": "#B58127", "Clean" : "#9DD0FC"}
 

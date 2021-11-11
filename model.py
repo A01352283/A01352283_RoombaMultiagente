@@ -35,6 +35,14 @@ class RandomModel(Model):
             self.schedule.add(obs)
             self.grid.place_agent(obs, pos)
 
+        # Add the roomba at the 1,1 coords
+        for i in range(self.num_agents):
+            a = RandomAgent(i+1000, self) 
+            self.schedule.add(a)
+
+            pos = (1,1)
+            self.grid.place_agent(a, pos)
+        
         #Adds dirt cells
         for i in range(self.dirtAmount):
             a = DirtAgent(i+2000, self) 
@@ -46,13 +54,6 @@ class RandomModel(Model):
                 pos = pos_gen(self.grid.width, self.grid.height)
             self.grid.place_agent(a, pos)
 
-        # Add the roomba at the 1,1 coords
-        for i in range(self.num_agents):
-            a = RandomAgent(i+1000, self) 
-            self.schedule.add(a)
-
-            pos = (1,1)
-            self.grid.place_agent(a, pos)
     
         self.running = True
         self.datacollector.collect(self)

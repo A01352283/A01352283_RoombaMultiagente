@@ -1,3 +1,5 @@
+#Andrés Briseño Celada - A01352283 - 10/11/2021 - Roomba multiagente
+
 from mesa import Agent
 
 class RandomAgent(Agent):
@@ -32,18 +34,20 @@ class RandomAgent(Agent):
 
         #neighborCells = self.model.grid.neighbor_iter(self.pos)
 
-
         # If the cell is empty, moves the agent to that cell; otherwise, it stays at the same position
         if freeSpaces[self.direction]:
             self.model.grid.move_agent(self, possible_steps[self.direction])
             self.direction = self.random.randint(0,8)
-            print(f"Se mueve de {self.pos} a {possible_steps[self.direction]}; direction {self.direction}")
+            #print(f"Se mueve de {self.pos} a {possible_steps[self.direction]}; direction {self.direction}")
         elif self.model.grid[possible_steps[self.direction][0]][possible_steps[self.direction][1]].condition == "Dirty": #Checks if the cell in the intended direction is dirty
             self.model.grid[possible_steps[self.direction][0]][possible_steps[self.direction][1]].condition = "Clean"
             self.model.grid.move_agent(self, possible_steps[self.direction])
+        elif self.model.grid[possible_steps[self.direction][0]][possible_steps[self.direction][1]].condition == "Roomba": #Checks if the cell in the intended direction is a roomba
+            self.model.grid.move_agent(self, possible_steps[self.direction])
+            self.direction = self.random.randint(0,8)
         else:
             self.direction = self.random.randint(0,8)
-            print(f"No se puede mover de {self.pos} en esa direccion.")
+            #print(f"No se puede mover de {self.pos} en esa direccion.")
 
     def step(self):
         """ 
